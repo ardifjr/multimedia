@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hantu Genit Di Kosan</title>
+    <link rel="shortcut icon" href="../../images/ModeloPages/icons/letter-n 1.svg" type="image/x-icon">
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        video::-webkit-media-controls-fullscreen-button {
+            display: none;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .close-btn:hover {
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .buttons-container {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 40px;  /* Increased gap between buttons */
+        }
+
+        .buttons-container button {
+            background: linear-gradient(to bottom, #8b0000, #330000);
+            color: #ffffff;
+            padding: 25px 50px;  /* Increased padding for larger buttons */
+            font-size: 24px;     /* Increased font size */
+            border: 3px solid #ff0000;  /* Thicker border */
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-shadow: 0 0 8px #ff0000;
+            box-shadow: 0 0 20px #ff0000, 
+                       inset 0 0 20px #ff0000;
+            font-family: "Crimson Text", "Times New Roman", serif;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;  /* Added uppercase for more impact */
+            min-width: 200px;          /* Minimum width for buttons */
+        }
+
+        .buttons-container button:hover {
+            background: linear-gradient(to bottom, #ff0000, #660000);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #ff0000,
+                       inset 0 0 30px #ff0000;
+            letter-spacing: 3px;
+        }
+
+        .buttons-container button::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 0, 0, 0.5);
+            animation: drip 2s infinite;
+        }
+
+        .buttons-container button::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 2px;
+            height: 10px;
+            background: #ff0000;
+            animation: drip 1.5s infinite;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes drip {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(150px);
+                opacity: 0;
+            }
+        }
+
+        /* Added pulsing animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .buttons-container button {
+            animation: pulse 2s infinite;
+        }
+
+        /* Added blood splatter effect */
+        .buttons-container button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 30%, rgba(255,0,0,0.1) 70%);
+            animation: splatter 3s infinite;
+        }
+
+        @keyframes splatter {
+            0% { transform: scale(1); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <video id="videoPlayer" controls>
+        <source src="https://firebasestorage.googleapis.com/v0/b/educonnect-examedu.appspot.com/o/fix.mp4?alt=media&token=d0e8b5c0-210e-4b25-9593-fbd08d8691d6" type="video/mp4">
+        Browser Anda tidak mendukung video tag.
+    </video>
+    <button class="close-btn" onclick="window.location.href='../../Pages/HomePage/index.html'">X</button>
+    <div class="buttons-container" id="buttonsContainer">
+        <button onclick="changeVideo('https://firebasestorage.googleapis.com/v0/b/educonnect-examedu.appspot.com/o/fixroti.mp4?alt=media&token=9ef9b3d4-83e0-4953-8972-f6e25f9914a7')">Beli Roti</button>
+        <button onclick="changeVideo('https://firebasestorage.googleapis.com/v0/b/educonnect-examedu.appspot.com/o/fixkeripik.mp4?alt=media&token=7e2cc8d0-5c88-4b10-ad29-d7622bfe1665')">Beli Keripik</button>
+    </div>
+    <script>
+        const videoPlayer = document.getElementById('videoPlayer');
+        const buttonsContainer = document.getElementById('buttonsContainer');
+        let firstVideoEnded = false;
+
+        videoPlayer.onended = function() {
+            if (!firstVideoEnded) {
+                firstVideoEnded = true;
+                buttonsContainer.style.display = 'flex';
+            }
+        };
+
+        function changeVideo(videoSource) {
+            videoPlayer.src = videoSource;
+            videoPlayer.play();
+            buttonsContainer.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
